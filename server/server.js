@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -15,19 +17,23 @@ const shopReviewRouter = require("./routes/shop/review-routes");
 
 const commonFeatureRouter = require("./routes/common/feature-routes");
 
+const app = express();
+
+// Load environment variables
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
+const CLIENT_URL = process.env.CLIENT_URL;
+
 // this is connection with mongodb for storing the data
 mongoose
-  .connect("mongodb+srv://sairam:sairam@cluster0.cidpu.mongodb.net/")
+  .connect(MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log(error));
-
-const app = express();
-const PORT = process.env.PORT || 5000;
 
 // this defines the cors configration for connection with frontend
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: CLIENT_URL,
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
