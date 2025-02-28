@@ -1,5 +1,3 @@
-require("dotenv").config(); // Load environment variables at the very top
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -20,20 +18,12 @@ const commonFeatureRouter = require("./routes/common/feature-routes");
 
 const app = express();
 
-// Load environment variables
-const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI;
-const CLIENT_URL = process.env.CLIENT_URL;
-
-// Check if MONGO_URI is correctly loaded
-if (!MONGO_URI) {
-  console.error("❌ MONGO_URI is missing. Check your .env file!");
-  process.exit(1); // Stop the server if DB URL is missing
-}
+// // Load environment variables
+const PORT = 5000;
 
 // Connect to MongoDB
 mongoose
-  .connect(MONGO_URI)
+  .connect("mongodb+srv://sairam:sairam@cluster0.cidpu.mongodb.net/")
   .then(() => console.log("✅ MongoDB connected"))
   .catch((error) => {
     console.error("❌ MongoDB connection error:", error);
@@ -43,7 +33,7 @@ mongoose
 // Configure CORS
 app.use(
   cors({
-    origin: CLIENT_URL,
+    origin: "https://handyHelpers-client.onrender.com",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
