@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
-
 const initialState = {
   approvalURL: null,
   isLoading: false,
@@ -15,7 +13,7 @@ export const createNewOrder = createAsyncThunk(
   "/order/createNewOrder",
   async (orderData) => {
     const response = await axios.post(
-      "${SERVER_URL}/api/shop/order/create",
+      "https://handyhelpers-server.onrender.com/api/shop/order/create",
       orderData
     );
 
@@ -26,11 +24,14 @@ export const createNewOrder = createAsyncThunk(
 export const capturePayment = createAsyncThunk(
   "/order/capturePayment",
   async ({ paymentId, payerId, orderId }) => {
-    const response = await axios.post("${SERVER_URL}/api/shop/order/capture", {
-      paymentId,
-      payerId,
-      orderId,
-    });
+    const response = await axios.post(
+      "https://handyhelpers-server.onrender.com/api/shop/order/capture",
+      {
+        paymentId,
+        payerId,
+        orderId,
+      }
+    );
 
     return response.data;
   }
@@ -40,7 +41,7 @@ export const getAllOrdersByUserId = createAsyncThunk(
   "/order/getAllOrdersByUserId",
   async (userId) => {
     const response = await axios.get(
-      `${SERVER_URL}/api/shop/order/list/${userId}`
+      `https://handyhelpers-server.onrender.com/api/shop/order/list/${userId}`
     );
 
     return response.data;
@@ -51,7 +52,7 @@ export const getOrderDetails = createAsyncThunk(
   "/order/getOrderDetails",
   async (id) => {
     const response = await axios.get(
-      `${SERVER_URL}/api/shop/order/details/${id}`
+      `https://handyhelpers-server.onrender.com/api/shop/order/details/${id}`
     );
 
     return response.data;

@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
-
 const initialState = {
   isLoading: false,
   productList: [],
@@ -12,7 +10,7 @@ export const addNewProduct = createAsyncThunk(
   "/products/addnewproduct",
   async (formData) => {
     const result = await axios.post(
-      "${SERVER_URL}/api/admin/products/add",
+      "https://handyhelpers-server.onrender.com/api/admin/products/add",
       formData,
       {
         headers: {
@@ -28,7 +26,9 @@ export const addNewProduct = createAsyncThunk(
 export const fetchAllProducts = createAsyncThunk(
   "/products/fetchAllProducts",
   async () => {
-    const result = await axios.get("${SERVER_URL}/api/admin/products/get");
+    const result = await axios.get(
+      "https://handyhelpers-server.onrender.com/api/admin/products/get"
+    );
 
     return result?.data;
   }
@@ -38,7 +38,7 @@ export const editProduct = createAsyncThunk(
   "/products/editProduct",
   async ({ id, formData }) => {
     const result = await axios.put(
-      `${SERVER_URL}/api/admin/products/edit/${id}`,
+      `https://handyhelpers-server.onrender.com/api/admin/products/edit/${id}`,
       formData,
       {
         headers: {
@@ -55,7 +55,7 @@ export const deleteProduct = createAsyncThunk(
   "/products/deleteProduct",
   async (id) => {
     const result = await axios.delete(
-      `${SERVER_URL}/api/admin/products/delete/${id}`
+      `https://handyhelpers-server.onrender.com/api/admin/products/delete/${id}`
     );
 
     return result?.data;

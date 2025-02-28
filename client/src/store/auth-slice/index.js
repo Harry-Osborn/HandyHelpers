@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
-
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
@@ -14,7 +12,7 @@ export const registerUser = createAsyncThunk(
 
   async (formData) => {
     const response = await axios.post(
-      "${SERVER_URL}/api/auth/register",
+      "https://handyhelpers-server.onrender.com/api/auth/register",
       formData,
       {
         withCredentials: true,
@@ -30,7 +28,7 @@ export const loginUser = createAsyncThunk(
 
   async (formData) => {
     const response = await axios.post(
-      "${SERVER_URL}/api/auth/login",
+      "https://handyhelpers-server.onrender.com/api/auth/login",
       formData,
       {
         withCredentials: true,
@@ -46,7 +44,7 @@ export const logoutUser = createAsyncThunk(
 
   async () => {
     const response = await axios.post(
-      "${SERVER_URL}/api/auth/logout",
+      "https://handyhelpers-server.onrender.com/api/auth/logout",
       {},
       {
         withCredentials: true,
@@ -61,13 +59,16 @@ export const checkAuth = createAsyncThunk(
   "/auth/checkauth",
 
   async () => {
-    const response = await axios.get("${SERVER_URL}/api/auth/check-auth", {
-      withCredentials: true,
-      headers: {
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate, proxy-revalidate",
-      },
-    });
+    const response = await axios.get(
+      "https://handyhelpers-server.onrender.com/api/auth/check-auth",
+      {
+        withCredentials: true,
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
+    );
 
     return response.data;
   }

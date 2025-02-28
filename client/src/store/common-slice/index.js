@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
-
 const initialState = {
   isLoading: false,
   featureImageList: [],
@@ -11,7 +9,9 @@ const initialState = {
 export const getFeatureImages = createAsyncThunk(
   "/order/getFeatureImages",
   async () => {
-    const response = await axios.get(`${SERVER_URL}/api/common/feature/get`);
+    const response = await axios.get(
+      `https://handyhelpers-server.onrender.com/api/common/feature/get`
+    );
 
     return response.data;
   }
@@ -20,9 +20,12 @@ export const getFeatureImages = createAsyncThunk(
 export const addFeatureImage = createAsyncThunk(
   "/order/addFeatureImage",
   async (image) => {
-    const response = await axios.post(`${SERVER_URL}/api/common/feature/add`, {
-      image,
-    });
+    const response = await axios.post(
+      `https://handyhelpers-server.onrender.com/api/common/feature/add`,
+      {
+        image,
+      }
+    );
 
     return response.data;
   }

@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
-
 const initialState = {
   isLoading: false,
   searchResults: [],
@@ -12,7 +10,7 @@ export const getSearchResults = createAsyncThunk(
   "/order/getSearchResults",
   async (keyword) => {
     const response = await axios.get(
-      `${SERVER_URL}/api/shop/search/${keyword}`
+      `https://handyhelpers-server.onrender.com/api/shop/search/${keyword}`
     );
 
     return response.data;
