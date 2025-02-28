@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
+
 const initialState = {
   isLoading: false,
   reviews: [],
@@ -11,7 +13,7 @@ export const addReview = createAsyncThunk(
   async (formdata, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/shop/review/add`,
+        `${SERVER_URL}/api/shop/review/add`,
         formdata
       );
       return response.data;
@@ -26,9 +28,7 @@ export const addReview = createAsyncThunk(
 );
 
 export const getReviews = createAsyncThunk("/order/getReviews", async (id) => {
-  const response = await axios.get(
-    `http://localhost:5000/api/shop/review/${id}`
-  );
+  const response = await axios.get(`${SERVER_URL}/api/shop/review/${id}`);
 
   return response.data;
 });
