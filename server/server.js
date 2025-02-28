@@ -1,9 +1,10 @@
-require("dotenv").config();
+require("dotenv").config(); // Load environment variables at the very top
 
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
 const authRouter = require("./routes/auth/auth-routes");
 const adminProductsRouter = require("./routes/admin/products-routes");
 const adminOrderRouter = require("./routes/admin/order-routes");
@@ -24,13 +25,22 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 const CLIENT_URL = process.env.CLIENT_URL;
 
-// this is connection with mongodb for storing the data
+// Check if MONGO_URI is correctly loaded
+if (!MONGO_URI) {
+  console.error("❌ MONGO_URI is missing. Check your .env file!");
+  process.exit(1); // Stop the server if DB URL is missing
+}
+
+// Connect to MongoDB
 mongoose
   .connect(MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((error) => console.log(error));
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((error) => {
+    console.error("❌ MongoDB connection error:", error);
+    process.exit(1); // Stop server on DB connection failure
+  });
 
-// this defines the cors configration for connection with frontend
+// Configure CORS
 app.use(
   cors({
     origin: CLIENT_URL,
@@ -48,18 +58,17 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
+
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/admin/orders", adminOrderRouter);
-
 app.use("/api/shop/products", shopProductsRouter);
 app.use("/api/shop/cart", shopCartRouter);
 app.use("/api/shop/address", shopAddressRouter);
 app.use("/api/shop/order", shopOrderRouter);
 app.use("/api/shop/search", shopSearchRouter);
 app.use("/api/shop/review", shopReviewRouter);
-
 app.use("/api/common/feature", commonFeatureRouter);
 
-// this is used to run the server
-app.listen(PORT, () => console.log(`Server is now running on port ${PORT}`));
+// Start the server
+app.listen(PORT, () => console.log(`🚀 Server is running on port ${PORT}`));
