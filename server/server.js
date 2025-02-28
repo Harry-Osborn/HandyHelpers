@@ -33,7 +33,7 @@ mongoose
 // Configure CORS
 app.use(
   cors({
-    origin: "https://handyHelpers-client.onrender.com",
+    origin: "https://handyhelpers-client.onrender.com",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
