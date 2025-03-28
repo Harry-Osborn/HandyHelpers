@@ -49,6 +49,7 @@ function App() {
             ></CheckAuth>
           }
         />
+
         <Route
           path="/auth"
           element={
@@ -60,6 +61,7 @@ function App() {
           <Route path="login" element={<AuthLogin />} />
           <Route path="register" element={<AuthRegister />} />
         </Route>
+
         <Route
           path="/admin"
           element={
@@ -73,6 +75,7 @@ function App() {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="features" element={<AdminFeatures />} />
         </Route>
+
         <Route
           path="/shop"
           element={
@@ -89,7 +92,9 @@ function App() {
           <Route path="payment-success" element={<PaymentSuccessPage />} />
           <Route path="search" element={<SearchProducts />} />
         </Route>
+
         <Route path="/unauth-page" element={<UnauthPage />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
